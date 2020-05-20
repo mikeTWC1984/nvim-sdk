@@ -74,6 +74,11 @@ cmap <S-Insert>     <C-R>+
 " switch to normal mode from terminal mode with Esc
 tnoremap <Esc> <C-\><C-n> 
 
+" save file with ctrl+S
+inoremap <silent><c-s> <c-o>:update<cr>
+nnoremap <silent><c-s> :<c-u>update<cr>
+" ctrl V paste in insert mode
+inoremap <c-v> <esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia
 
 " -------------- ISE SETTINGS --------------------
 
