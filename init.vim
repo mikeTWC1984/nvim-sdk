@@ -219,10 +219,37 @@ endfunction
 map <F9> :call CloseTab() <CR>
 "map <F33> :bn!# <bar> bd!# <CR>
 
+let g:copymode = 0 " 0 - normal, 1 - copy, 2 - paste
 
-"toggle numbers
-map <F7> :set rnu! <bar> :set nu!<CR>
+function! ToggleCopyMode()
+    " check if mouse is enabled
+    if g:copymode == 0
+        " disable mouse
+        set scl=no
+        set mouse=
+        set rnu!
+        set nu!
+        let g:copymode = 1
+    elseif g:copymode == 1
+      set paste
+      set mouse=a
+      let g:copymode = 2
+    else
+      set paste!
+      set scl=yes
+      set mouse=a
+      set rnu
+      set nu
+      let g:copymode = 0
+    endif
+endfunc
 
+"toggle numbers and mouse (for remote copying)
+"map <F7> :call ToggleMouse() <bar> :set rnu! <bar> :set nu!<CR>
+map <F7> :call ToggleCopyMode() <CR>
+map <F31> :set rnu! <bar> :set nu!<CR>
+
+nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 
 "------------- NAVIGATION ---------------------
 "
